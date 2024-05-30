@@ -13,7 +13,7 @@ class Album(models.Model):
  
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
     album_Name=models.CharField(max_length=15)
-    release_date = models.DateField()
+    release_date = models.DateField(auto_now_add=True)
     rating= models.IntegerField(choices=Rating_choice)
     
 
