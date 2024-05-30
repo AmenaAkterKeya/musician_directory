@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+<h1 style="text-align: center; margin-top: 45px; margin-bottom: 65px">
+  Musicians Directory
+</h1>
+
+<table class="table table-bordered" style="width: 90%; margin: auto">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Musician Name</th>
+      <th>Email</th>
+      <th>Album Rating</th>
+      <th>Instrument Type</th>
+      <th>Album Name</th>
+      <th>Release Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for musician in data %} {% for album in data_al %} {% comment %}
+    condition {% endcomment %} {% if album.musician_id == musician.id %}
+    <tr>
+      <td>{{ musician.id }}</td>
+      <td style="font-size: 20px">
+        <a
+          href="{% url 'edit_musician' musician.id %}"
+          class="link-danger link-underline link-underline-opacity-0"
+          >{{ musician.first_Name }} {{ musician.last_Name }}</a
+        >
+      </td>
+      <td>{{ musician.email }}</td>
+      <td>{{ album.rating }}</td>
+      <td>{{ musician.instrument }}</td>
+      <td>{{ album.album_Name }}</td>
+      <td>{{ album.release_date }}</td>
+      <td>
+        <a href="{% url 'edit_album' album.id %}" class="btn btn-primary"
+          >Edit</a
+        >
+        <a href="{% url 'delete_all' musician.id%}" class="btn btn-danger"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %} {% endfor %} {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
