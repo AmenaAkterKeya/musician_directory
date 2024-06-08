@@ -13,7 +13,10 @@
       <th>Instrument Type</th>
       <th>Album Name</th>
       <th>Release Date</th>
+      {% if request.user.is_authenticated %}
       <th>Actions</th>
+  {% endif %}
+    
     </tr>
   </thead>
   <tbody>
@@ -22,24 +25,31 @@
     <tr>
       <td>{{ musician.id }}</td>
       <td style="font-size: 20px">
+        {% if request.user.is_authenticated %}
         <a
           href="{% url 'edit_musician' musician.id %}"
           class="link-danger link-underline link-underline-opacity-0"
-          >{{ musician.first_Name }} {{ musician.last_Name }}</a
-        >
+          >{{ musician.first_Name }} {{ musician.last_Name }}</a>
+        {% else %} <p class="text-danger">{{ musician.first_Name }} {{ musician.last_Name }}</p>
+    {% endif %}
+      
       </td>
       <td>{{ musician.email }}</td>
       <td>{{ album.rating }}</td>
       <td>{{ musician.instrument }}</td>
       <td>{{ album.album_Name }}</td>
       <td>{{ album.release_date }}</td>
+
       <td>
+        {% if request.user.is_authenticated %}
         <a href="{% url 'edit_album' album.id %}" class="btn btn-primary"
-          >Edit</a
-        >
-        <a href="{% url 'delete_all' musician.id%}" class="btn btn-danger"
-          >Delete</a
-        >
+        >Edit</a
+      >
+      <a href="{% url 'delete_all' musician.id%}" class="btn btn-danger"
+        >Delete</a
+      >
+    {% endif %}
+     
       </td>
     </tr>
     {% endif %} {% endfor %} {% endfor %}
